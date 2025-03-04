@@ -2,9 +2,15 @@ from tkinter import *
 from tkinter import Tk, ttk
 from PIL import Image, ImageTk  # Importando Image e ImageTk
 from tkinter.ttk import Progressbar
+
+#matplotlib
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
+
+# tkcalendar
+from tkcalendar import Calendar, DateEntry
+from datetime import date
 
 # cores 
 co0 = "#2e2d2b"  
@@ -189,6 +195,7 @@ l_income = Label(frameMeio, text="Tabela Receitas e Despesas", height=1,anchor=N
 l_income.place(x=5, y=309)
 
 # funcao para mostrar_renda
+
 def mostrar_renda():
     # creating a treeview with dual scrollbars
     tabela_head = ['#Id','Categoria','Data','Quantia']
@@ -224,5 +231,92 @@ def mostrar_renda():
         tree.insert('', 'end', values=item)
 
 mostrar_renda()
+
+# Configuracoes Despesas -----------------------------------
+l_descricao = Label(frame_operacoes, text="Insira novas despesas", height=1,anchor=NW,relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_descricao.place(x=10, y=10)
+
+l_descricao = Label(frame_operacoes, text="Categoria", height=1,anchor=NW,relief="flat", font=('Ivy 10'), bg=co1, fg=co4)
+l_descricao.place(x=10, y=40)
+
+# Pegando os categorias
+categorias_funcao = ['viagens','comida']
+categorias = []
+
+for i in categorias_funcao:
+    categorias.append(i[1])
+
+combo_categoria_despesas = ttk.Combobox(frame_operacoes, width=10,font=('Ivy 10'))
+combo_categoria_despesas['values'] = (categorias)
+combo_categoria_despesas.place(x=110, y=41)
+
+l_cal_despeas = Label(frame_operacoes, text="Data", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_cal_despeas.place(x=10, y=70)
+
+e_cal_despeas = DateEntry(frame_operacoes, width=12, background='darkblue', foreground='white', borderwidth=2, year=2020)
+e_cal_despeas.place(x=110, y=71)
+
+l_valor_despesas = Label(frame_operacoes, text="Quantia Total", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_valor_despesas.place(x=10, y=100)
+e_valor_despesas = Entry(frame_operacoes, width=14, justify='left',relief="solid")
+e_valor_despesas.place(x=110, y=101)
+
+# Botao Inserir
+img_add_despesas  = Image.open('add.png')
+img_add_despesas = img_add_despesas.resize((17,17))
+img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
+
+botao_inserir_despesas = Button(frame_operacoes,image=img_add_despesas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
+botao_inserir_despesas.place(x=110, y=131)
+
+
+# operacao Excluir -----------------------
+l_n_categoria = Label(frame_operacoes, text="Excluir ação", height=1,anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
+l_n_categoria.place(x=10, y=190)
+
+
+# Botao Deletar
+img_delete  = Image.open('delete.png')
+img_delete = img_delete.resize((20, 20))
+img_delete = ImageTk.PhotoImage(img_delete)
+botao_deletar = Button(frame_operacoes, image=img_delete, compound=LEFT, anchor=NW, text="   Deletar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
+botao_deletar.place(x=110, y=190)
+
+# Configuracoes Receitas -----------------------------------
+
+l_descricao = Label(frame_configuracao, text="Insira novas receitas", height=1,anchor=NW,relief="flat", font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_descricao.place(x=10, y=10)
+
+l_cal_receitas = Label(frame_configuracao, text="Data", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_cal_receitas.place(x=10, y=40)
+e_cal_receitas = DateEntry(frame_configuracao, width=12, background='darkblue', foreground='white', borderwidth=2, year=2020)
+e_cal_receitas.place(x=110, y=41)
+
+l_valor_receitas = Label(frame_configuracao, text="Quantia Total", height=1,anchor=NW, font=('Ivy 10 '), bg=co1, fg=co4)
+l_valor_receitas.place(x=10, y=70)
+e_valor_receitas = Entry(frame_configuracao, width=14, justify='left',relief="solid")
+e_valor_receitas.place(x=110, y=71)
+
+# Botao Inserir
+img_add_receitas  = Image.open('add.png')
+img_add_receitas = img_add_receitas.resize((17,17))
+img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
+botao_inserir_receitas = Button(frame_configuracao, image=img_add_receitas, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
+botao_inserir_receitas.place(x=110, y=111)
+
+
+# operacao Nova Categoria -----------------------
+
+l_n_categoria = Label(frame_configuracao, text="Categoria", height=1,anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
+l_n_categoria.place(x=10, y=160)
+e_n_categoria = Entry(frame_configuracao, width=14, justify='left',relief="solid")
+e_n_categoria.place(x=110, y=160)
+
+# Botao Inserir
+img_add_categoria  = Image.open('add.png')
+img_add_categoria = img_add_categoria.resize((17,17))
+img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
+botao_inserir_categoria = Button(frame_configuracao,image=img_add_categoria, compound=LEFT, anchor=NW, text=" Adicionar".upper(), width=80, overrelief=RIDGE,  font=('ivy 7 bold'),bg=co1, fg=co0 )
+botao_inserir_categoria.place(x=110, y=190)
 
 janela.mainloop ()
